@@ -1,0 +1,6 @@
+name: Hello
+challenges:
+  - id: shellcode-demo-1
+    name: Shellcode Demo 1
+  - id: memory-corruption-demo-1
+    name: Memory Corruption Demo 1

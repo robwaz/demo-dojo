@@ -1,10 +1,6 @@
 id: example
 name: Example Dojo
 type: example
-award:
-  emoji: 😀
-image: pwncollege/challenge-simple
+image: pwncollege/challenge-legacy
 modules:
-  - id: hello
-  - id: world
-  - id: demo
+  - id: cse466
