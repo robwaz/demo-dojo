@@ -1,4 +1,4 @@
-name: Hello
+name: cse466-demos
 challenges:
   - id: shellcode-demo-1
     name: Shellcode Demo 1

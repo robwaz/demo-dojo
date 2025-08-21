@@ -3,4 +3,4 @@ name: Example Dojo
 type: example
 image: pwncollege/challenge-legacy
 modules:
-  - id: cse466
+  - id: cse466-demos
