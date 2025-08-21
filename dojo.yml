@@ -1,6 +1,6 @@
-id: example
-name: Example Dojo
-type: example
+id: demo-dojo
+name: Demo dojo
+type: public
 image: pwncollege/challenge-legacy
 modules:
   - id: cse466-demos
