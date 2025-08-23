@@ -1,0 +1,10 @@
+seed: 1337
+variants: 1
+walkthrough: false
+keep_source: true
+binary_name: demo
+challenges:
+- id: shellcode-demo-1
+  challenge: BabyShellCodeRunner
+- id: memory-corruption-demo-1
+  challenge: BabyMemDemo

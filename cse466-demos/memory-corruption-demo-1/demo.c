@@ -25,7 +25,7 @@
 
 void bin_padding()
 {
-    asm volatile (".rept 3116; nop; .endr");
+    asm volatile (".rept 3806; nop; .endr");
 }
 
 void win()
@@ -60,8 +60,8 @@ int challenge(int argc, char **argv, char **envp)
 {
     struct
     {
-        char input[59];
-        char pad[3116];
+        char input[95];
+        char pad[3806];
         char password[8];
     } data  = {0} ;
     int rand_fd = open("/dev/urandom", O_RDONLY);
