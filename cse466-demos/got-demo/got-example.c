@@ -2,8 +2,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <dlfcn.h>
 #include <link.h>
+#include <dlfcn.h>
 #include <elf.h>
 
 
@@ -16,13 +16,12 @@ uint64_t find_pltgot() {
 
     ElfW(Addr) gotplt = 0;
     for (ElfW(Dyn)* d = lm->l_ld; d->d_tag != DT_NULL; ++d)
-        if (d->d_tag == DT_PLTGOT) { pltgot = d->d_un.d_ptr; break; }
+        if (d->d_tag == DT_PLTGOT) { gotplt = d->d_un.d_ptr; break; }
     return gotplt;
 }
 
 void main() {
-  uint64_t gotplt = find_pltgot()
-  
-	puts("hello world!\n");
-	printf("The GOT.PLT is located at: %llx\n", gotplt);
+    uint64_t gotplt = find_pltgot();
+    puts("hello world!\n");
+    printf("The GOT.PLT is located at: 0x%llx\n", (unsigned long long) gotplt);   
 }
