@@ -22,6 +22,7 @@ uint64_t find_pltgot() {
 
 void main() {
     uint64_t gotplt = find_pltgot();
-    puts("hello world!\n");
+    puts("Hello!\n");
     printf("The GOT.PLT is located at: 0x%llx\n", (unsigned long long) gotplt);   
+    puts("Goodbye!");
 }
