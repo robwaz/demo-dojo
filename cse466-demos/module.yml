@@ -1,4 +1,8 @@
 name: cse466-demos
+description: |
+  This module is a temporary placeholder for varous examples used in pre-recorded lecture videos and live streams.
+  
+  The example binaries will be be moved to their respective modules at a future date and this module will be deleted.
 challenges:
   - id: shellcode-demo-1
     name: Shellcode Demo 1
