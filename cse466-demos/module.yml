@@ -9,4 +9,4 @@ challenges:
   - id: memory-corruption-demo-1
     name: Memory Corruption Demo 1
   - id: got-demo
-    name: GOT corruption Demo
+    name: GOT Corruption Demo
