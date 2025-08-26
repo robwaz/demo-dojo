@@ -10,3 +10,9 @@ challenges:
     name: Memory Corruption Demo 1
   - id: got-demo
     name: GOT Corruption Demo
+  - id: stack-corruption-demo
+    name: Stack Corruption Demo
+  - id: shellcode-unique-opcode-golf
+    name: Shellcode Unique Opcode Golf
+  - id: stack-dist-calc-demo
+    name: Stack Distance Calculation Demo

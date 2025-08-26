@@ -1,0 +1,1 @@
+gcc -O2 -std=c11 -Wall -Wextra -o unique_golf unique_golf.c -lcapstone

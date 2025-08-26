@@ -1,0 +1,1 @@
+gcc -g -O0 -fno-stack-protector -D_FORTIFY_SOURCE=0 stackdemo.c -o stackdemo
