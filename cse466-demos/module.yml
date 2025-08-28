@@ -16,3 +16,5 @@ challenges:
     name: Shellcode Unique Opcode Golf
   - id: stack-dist-calc-demo
     name: Stack Distance Calculation Demo
+  - id: demo-cooking-with-canaries
+    name: Cooking with Canaries
