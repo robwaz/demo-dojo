@@ -18,3 +18,5 @@ challenges:
     name: Stack Distance Calculation Demo
   - id: demo-cooking-with-canaries
     name: Cooking with Canaries
+  - id: complex-corruption-demo
+    name: Complex Corruption
