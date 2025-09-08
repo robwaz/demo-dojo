@@ -6,17 +6,25 @@ description: |
 challenges:
   - id: shellcode-demo-1
     name: Shellcode Demo 1
+    required: False
   - id: memory-corruption-demo-1
     name: Memory Corruption Demo 1
+    required: False
   - id: got-demo
     name: GOT Corruption Demo
+    required: False
   - id: stack-corruption-demo
     name: Stack Corruption Demo
+    required: False
   - id: shellcode-unique-opcode-golf
     name: Shellcode Unique Opcode Golf
+    required: False
   - id: stack-dist-calc-demo
     name: Stack Distance Calculation Demo
+    required: False
   - id: demo-cooking-with-canaries
     name: Cooking with Canaries
+    required: False
   - id: complex-corruption-demo
     name: Complex Corruption
+    required: False
