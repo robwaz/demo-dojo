@@ -12,7 +12,6 @@ challenges:
     required: False
   - id: got-demo
     name: GOT Corruption Demo
-    required: False
   - id: stack-corruption-demo
     name: Stack Corruption Demo
     required: False
