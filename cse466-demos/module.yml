@@ -28,3 +28,9 @@ challenges:
   - id: complex-corruption-demo
     name: Complex Corruption
     required: False
+  - id: leak-demo
+    name: Leak to GOT Demo
+    required: False
+  - id: rev-roundup
+    name: Reversing Roundup Demo
+    required: False
