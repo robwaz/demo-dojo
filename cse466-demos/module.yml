@@ -34,3 +34,6 @@ challenges:
   - id: rev-roundup
     name: Reversing Roundup Demo
     required: False
+  - id: stripmine
+    name: stripmine (Rev Demo)
+    required: False
