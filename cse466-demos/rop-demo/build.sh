@@ -1,0 +1,1 @@
+gcc -O0 -fno-omit-frame-pointer -fno-stack-protector -fPIE -pie demo.c -o demo -lcapstone

@@ -37,3 +37,6 @@ challenges:
   - id: stripmine
     name: stripmine (Rev Demo)
     required: False
+  - id: rop-demo
+    name: ROP Demo
+    required: False
