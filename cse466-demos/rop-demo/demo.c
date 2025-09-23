@@ -61,7 +61,7 @@ void print_chain(unsigned long **chain_addr, int chain_length)
 int main() {
     char buf[64];
     printf("[leak] main=%p\n", (void *)&main);
-    //printf("[leak] puts@libc=%p\n", dlsym(RTLD_NEXT, "puts"));
+    printf("[leak] puts@libc=%p\n", dlsym(RTLD_NEXT, "puts"));
     puts("overflow a 64 byte buffer NOW");
     ssize_t n = read(0, buf, 0x1000);
     if (n <= 0) return 0;
