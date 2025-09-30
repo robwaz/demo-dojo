@@ -75,7 +75,8 @@ int main() {
     printf("[leak] main=%p\n", (void *)&main);
     puts("overflow a 64 byte buffer NOW");
     ssize_t n = read(0, buf, 0x1000);
-    if (n <= 0) return 0;
+    if (n <= 0) exit(1);
 
     print_chain((void *) &buf, n / 8);
+    
 }
