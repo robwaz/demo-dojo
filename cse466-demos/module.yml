@@ -43,3 +43,6 @@ challenges:
   - id: rop-demo-deux
     name: ROP Demo Deux
     required: False
+  - id: race-demo
+    name: ticketcounter (race condition demo)
+    required: False
