@@ -1,0 +1,1 @@
+gcc -lpthread ticketcounter.c -o ticketcounter
