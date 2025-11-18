@@ -46,3 +46,9 @@ challenges:
   - id: race-demo
     name: ticketcounter (race condition demo)
     required: False
+  - id: kernel-ioctl-demo
+    name: Kernel Ioctl Demo
+    required: False
+  - id: kernel-shellcode-demo
+    name: Kernel Shellcode Demo
+    required: False
