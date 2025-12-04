@@ -52,3 +52,7 @@ challenges:
   - id: kernel-shellcode-demo
     name: Kernel Shellcode Demo
     required: False
+  - id: boom-view
+    image: robwazz/boom-view
+    name: Visualizing CPU Execution
+    required: False
