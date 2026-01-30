@@ -10,6 +10,15 @@
 #define CAPSTONE_ARCH CS_ARCH_X86
 #define CAPSTONE_MODE CS_MODE_64
 
+// Syscall gadget: syscall; ret
+__attribute__((naked, used, section(".text")))
+void syscall_gadget(void) {
+    __asm__ volatile (
+        "syscall\n"
+        "ret\n"
+    );
+}
+
 void print_gadget(unsigned long *gadget_addr)
 {
   csh handle;
@@ -61,7 +70,7 @@ void print_chain(unsigned long **chain_addr, int chain_length)
 int main() {
     char buf[64];
     printf("[leak] main=%p\n", (void *)&main);
-    printf("[leak] puts@libc=%p\n", dlsym(RTLD_NEXT, "puts"));
+    printf("[leak] syscall_gadget=%p\n", (void *)&syscall_gadget);
     puts("overflow a 64 byte buffer NOW");
     ssize_t n = read(0, buf, 0x1000);
     if (n <= 0) return 0;
