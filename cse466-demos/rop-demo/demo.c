@@ -19,6 +19,114 @@ void syscall_gadget(void) {
     );
 }
 
+// pop rax; ret - syscall number
+__attribute__((naked, used, section(".text")))
+void pop_rax(void) {
+    __asm__ volatile (
+        "pop %rax\n"
+        "ret\n"
+    );
+}
+
+// pop rdi; ret - 1st argument
+__attribute__((naked, used, section(".text")))
+void pop_rdi(void) {
+    __asm__ volatile (
+        "pop %rdi\n"
+        "ret\n"
+    );
+}
+
+// pop rsi; ret - 2nd argument
+__attribute__((naked, used, section(".text")))
+void pop_rsi(void) {
+    __asm__ volatile (
+        "pop %rsi\n"
+        "ret\n"
+    );
+}
+
+// pop rdx; ret - 3rd argument
+__attribute__((naked, used, section(".text")))
+void pop_rdx(void) {
+    __asm__ volatile (
+        "pop %rdx\n"
+        "ret\n"
+    );
+}
+
+// pop r10; ret - 4th argument (syscall convention)
+__attribute__((naked, used, section(".text")))
+void pop_r10(void) {
+    __asm__ volatile (
+        "pop %r10\n"
+        "ret\n"
+    );
+}
+
+// pop r8; ret - 5th argument
+__attribute__((naked, used, section(".text")))
+void pop_r8(void) {
+    __asm__ volatile (
+        "pop %r8\n"
+        "ret\n"
+    );
+}
+
+// pop r9; ret - 6th argument
+__attribute__((naked, used, section(".text")))
+void pop_r9(void) {
+    __asm__ volatile (
+        "pop %r9\n"
+        "ret\n"
+    );
+}
+
+// Bonus useful gadgets:
+
+// pop rbx; ret
+__attribute__((naked, used, section(".text")))
+void pop_rbx(void) {
+    __asm__ volatile (
+        "pop %rbx\n"
+        "ret\n"
+    );
+}
+
+// pop rcx; ret
+__attribute__((naked, used, section(".text")))
+void pop_rcx(void) {
+    __asm__ volatile (
+        "pop %rcx\n"
+        "ret\n"
+    );
+}
+
+// pop rbp; ret
+__attribute__((naked, used, section(".text")))
+void pop_rbp(void) {
+    __asm__ volatile (
+        "pop %rbp\n"
+        "ret\n"
+    );
+}
+
+// xor rax, rax; ret (zero rax)
+__attribute__((naked, used, section(".text")))
+void xor_rax(void) {
+    __asm__ volatile (
+        "xor %rax, %rax\n"
+        "ret\n"
+    );
+}
+
+// ret (for stack alignment / nop slide)
+__attribute__((naked, used, section(".text")))
+void ret_gadget(void) {
+    __asm__ volatile (
+        "ret\n"
+    );
+}
 void print_gadget(unsigned long *gadget_addr)
 {
   csh handle;
