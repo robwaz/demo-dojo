@@ -1,3 +1,16 @@
+/*
+ * level_viewer.c - toy level loader for the assembler/disassembler demo.
+ *
+ * Format:
+ *   header:  "LVL" | count (u8)
+ *   records: tag (u8) | x (u8) | y (u8)      -- count records, 3 bytes each
+ *   tags:    1 = wall, 2 = spawn, 3 = exit, 7 = treasure (no built-in level uses it)
+ *
+ * Usage: ./level_viewer             play the built-in levels
+ *        ./level_viewer my.lvl      play a custom level
+ *
+ * Move with w/a/s/d. Walking onto a treasure prints the flag.
+ */
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
@@ -9,12 +22,7 @@
 
 enum { TILE_WALL = 1, TILE_SPAWN = 2, TILE_EXIT = 3, TILE_TREASURE = 7 };
 
-struct record {
-    uint8_t tag;
-    uint8_t x;
-    uint8_t y;
-};
-
+/* Built-in levels. sizeof - 1 drops the string's trailing NUL. */
 static const char level1[] =
     "\x4c\x56\x4c\x09\x02\x01\x03\x03\x0e\x03\x01\x07\x00\x01\x07\x01"
     "\x01\x07\x02\x01\x07\x03\x01\x07\x04\x01\x07\x06\x01\x07\x07";
@@ -49,7 +57,7 @@ static void print_flag(void)
 
 struct level {
     char grid[H][W];
-    int px, py;
+    int px, py;              /* player position */
 };
 
 static void draw_border(void)
@@ -87,20 +95,30 @@ static int load_level(struct level *lv, const uint8_t *data, size_t len)
     memset(lv->grid, '.', sizeof lv->grid);
     int spawns = 0;
 
-    const struct record *recs = (const struct record *)(data + 4);
+    const uint8_t *rec = data + 4;
     for (int i = 0; i < count; i++) {
-        struct record r = recs[i];
-        if (r.x >= W || r.y >= H) {
+        uint8_t tag = rec[0];
+        uint8_t x   = rec[1];
+        uint8_t y   = rec[2];
+        rec += 3;
+
+        if (x >= W || y >= H) {
             printf("Record %d is off the map.\n", i);
             return 1;
         }
-        switch (r.tag) {
-        case TILE_WALL:     lv->grid[r.y][r.x] = '#'; break;
-        case TILE_SPAWN:    lv->px = r.x; lv->py = r.y; spawns++; break;
-        case TILE_EXIT:     lv->grid[r.y][r.x] = 'E'; break;
-        case TILE_TREASURE: lv->grid[r.y][r.x] = '$'; break;
-        default:
-            printf("Record %d has unknown type %u.\n", i, r.tag);
+
+        if (tag == TILE_WALL) {
+            lv->grid[y][x] = '#';
+        } else if (tag == TILE_SPAWN) {
+            lv->px = x;
+            lv->py = y;
+            spawns++;
+        } else if (tag == TILE_EXIT) {
+            lv->grid[y][x] = 'E';
+        } else if (tag == TILE_TREASURE) {
+            lv->grid[y][x] = '$';
+        } else {
+            printf("Record %d has unknown type %u.\n", i, tag);
             return 1;
         }
     }
@@ -111,7 +129,7 @@ static int load_level(struct level *lv, const uint8_t *data, size_t len)
     return 0;
 }
 
-
+/* Returns 0 if the player reached the exit, 1 if they quit. */
 static int play(struct level *lv)
 {
     char line[256];
@@ -175,7 +193,7 @@ int main(int argc, char **argv)
         if (load_level(&lv, data, len))
             return 1;
         if (play(&lv) == 0)
-            puts("...but the legends whisper of treasure.");
+            puts("...but the legends speak of treasure.");
         return 0;
     }
 
