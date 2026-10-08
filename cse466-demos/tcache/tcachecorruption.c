@@ -9,7 +9,7 @@ int main(void) {
     long *target = mmap((void *)TARGET, 0x1000, PROT_READ | PROT_WRITE,
                         MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED_NOREPLACE, -1, 0);
 
-    *target = 0x13371337
+    *target = 0x13371337;
 
     printf("setting target=%#lx\n", TARGET);
 
