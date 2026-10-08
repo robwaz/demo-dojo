@@ -46,6 +46,12 @@ challenges:
   - id: rop-demo-trois
     name: ROP Demo Trois (open/read/write)
     required: False
+  - id: rop-stackpivot
+    name: ROP Stack Pivot Demo
+    required: False
+  - id: tcache
+    name: Tcache Corruption Demo
+    required: False
   - id: race-demo
     name: ticketcounter (race condition demo)
     required: False
