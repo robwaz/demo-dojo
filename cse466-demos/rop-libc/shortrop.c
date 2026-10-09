@@ -1,13 +1,18 @@
 #include <stdio.h>
 #include <unistd.h>
-
-int main(void)
+void vuln(void)
 {
     char buf[0x100];
-
+    read(0, buf, 0x128);
+    puts(buf);
+}
+ 
+int main(void)
+{
     setvbuf(stdout, NULL, _IONBF, 0);
     puts("overflow me");
-    read(0, buf, 0x128);
-
+    vuln();
+ 
     return 0;
 }
+
