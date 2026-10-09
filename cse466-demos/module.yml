@@ -49,6 +49,9 @@ challenges:
   - id: rop-stackpivot
     name: ROP Stack Pivot Demo
     required: False
+  - id: rop-libc
+    name: ROP libc Demo
+    required: False
   - id: tcache
     name: Tcache Corruption Demo
     required: False
