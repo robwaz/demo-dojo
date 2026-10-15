@@ -55,6 +55,9 @@ challenges:
   - id: tcache
     name: Tcache Corruption Demo
     required: False
+  - id: heap-menu
+    name: Heap Menu Demo
+    required: False
   - id: race-demo
     name: ticketcounter (race condition demo)
     required: False
