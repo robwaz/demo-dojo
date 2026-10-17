@@ -58,6 +58,9 @@ challenges:
   - id: heap-menu
     name: Heap Menu Demo
     required: False
+  - id: heap-safelink
+    name: Heap Full Safelinking Demo
+    required: False
   - id: race-demo
     name: ticketcounter (race condition demo)
     required: False
