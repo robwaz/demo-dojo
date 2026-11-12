@@ -74,6 +74,7 @@ challenges:
     image: robwazz/boom-view
     name: Visualizing CPU Execution
     required: False
-  - id: rev-game
-    name: Reversing Game Theory
+  - id: 4jails
+    name: Jail Demos
     required: False
+
