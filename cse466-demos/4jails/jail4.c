@@ -6,11 +6,15 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stddef.h>
+#include <sys/mman.h>
 #include <sys/prctl.h>
 #include <sys/syscall.h>
 #include <linux/audit.h>
 #include <linux/filter.h>
 #include <linux/seccomp.h>
+
+#define NAME "jail4c"
+#define PAGE 0x1000
 
 static void only_read(void)
 {
@@ -55,15 +59,50 @@ static void only_read(void)
     }
 }
 
+// we hand this address to the shellcode in rdi, so it never has to go find it
+static char secret[256];
+
 int main(int argc, char **argv)
 {
-    // need exactly one argument: a byte index, or --try-write
+    // need exactly one argument: a file holding the code to run inside the jail
     if (argc != 2)
     {
-        fprintf(stderr, "usage: %s <byte-index>\n", argv[0]);
-        fprintf(stderr, "       %s --try-write\n", argv[0]);
+        fprintf(stderr, "usage: %s <shellcode-file>\n", argv[0]);
         return 2;
     }
+
+    // load your code while open() and mmap() still work
+    int sc = open(argv[1], O_RDONLY);
+    if (sc < 0)
+    {
+        perror(argv[1]);
+        return 1;
+    }
+
+    // a writable page to land it in, not executable yet
+    void *page = mmap(NULL, PAGE, PROT_READ | PROT_WRITE,
+                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    if (page == MAP_FAILED)
+    {
+        perror("mmap");
+        return 1;
+    }
+
+    ssize_t len = read(sc, page, PAGE);
+    if (len <= 0)
+    {
+        perror("read shellcode");
+        return 1;
+    }
+    close(sc);
+
+    // flip the page to executable: never writable and executable at the same time
+    if (mprotect(page, PAGE, PROT_READ | PROT_EXEC) != 0)
+    {
+        perror("mprotect");
+        return 1;
+    }
+    fprintf(stderr, "[" NAME "] loaded %zd bytes of shellcode\n", len);
 
     // open the secret BEFORE the filter goes on
     int secret_fd = open("/flag", O_RDONLY);
@@ -73,17 +112,19 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    // read it in while we still have a syscall that can put it somewhere
+    if (read(secret_fd, secret, sizeof(secret)) <= 0)
+    {
+        perror("read /flag");
+        return 1;
+    }
+    close(secret_fd);
+
     // lock down to read() only, no open, write or exit after this
     only_read();
 
-    // read the secret through the fd we already have
-    char secret[256] = { 0 };
-    ssize_t n = read(secret_fd, secret, sizeof(secret));
-
-    // the real leak: consume secret[index] bytes of stdin, moving its shared offset by that much
-    int index = atoi(argv[1]);
-    char scratch[256];
-    read(0, scratch, (unsigned char)secret[index]);
+    // hand over control: rdi = secret, rsi = its length, and no way to print it
+    ((void (*)(char *, size_t))page)(secret, sizeof(secret));
 
     // exit_group() isn't allowed either, so returning dies with SIGSYS
     return 0;
